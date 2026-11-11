@@ -18,7 +18,7 @@ public record Project(String id, String name, String owner) {
 
     public Project {
         Objects.requireNonNull(id, "id");
-        Objects.requireNonNull(name,"name");
+        Objects.requireNonNull(name, "name");
         Objects.requireNonNull(owner, "owner");
         if (id.isBlank()) {
             throw new IllegalArgumentException("Project id must not be blank");

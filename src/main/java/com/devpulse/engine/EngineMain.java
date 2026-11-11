@@ -42,7 +42,6 @@ public class EngineMain {
         projects.save(new Project("chat", "Chat Platform", "bob"));
         projects.save(new Project("analytics", "Analytics", "carol"));
 
-
         // 2. Build the pipeline (composition: small steps, injected dependencies)
         Pipeline pipeline = Pipeline.of(
                 new EventValidator(clock, id -> projects.findById(id).isPresent()),

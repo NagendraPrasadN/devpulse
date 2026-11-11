@@ -82,6 +82,11 @@ public final class IncidentManager {
         return incident;
     }
 
+    /** Added in Phase 2: the REST layer needs to look an incident up by id. */
+    public Optional<Incident> findById(UUID incidentId) {
+        return incidents.findById(incidentId);
+    }
+
     public List<Incident> findAll() {
         return incidents.findAll();
     }

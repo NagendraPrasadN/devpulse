@@ -1,0 +1,63 @@
+### DevPulse Phase 2 requests. Open in IntelliJ and click the green arrow next to a request.
+### Start the app first (DevpulseApplication). With devpulse.seed-demo-data=true the projects
+### shop, chat, analytics already exist and fake apps send events for about 20 seconds.
+
+### 1. Register a project  -> 201 Created + Location header
+POST http://localhost:8080/api/projects
+Content-Type: application/json
+
+{ "id": "billing", "name": "Billing Service", "owner": "dave" }
+
+### 2. Same request again -> 409 Conflict (then look at the audit trail, request 12)
+
+### 3. Invalid request -> 400 with a message per bad field
+POST http://localhost:8080/api/projects
+Content-Type: application/json
+
+{ "id": "Bad Id!", "name": "", "owner": "dave" }
+
+### 4. List projects
+GET http://localhost:8080/api/projects
+
+### 5. One project -> 200, or 404 if it does not exist
+GET http://localhost:8080/api/projects/billing
+
+### 6. Send an event -> 202 Accepted (queued, processed a moment later)
+POST http://localhost:8080/api/events
+Content-Type: application/json
+
+{
+  "projectId": "billing",
+  "service": "invoice-api",
+  "severity": "ERROR",
+  "message": "Timeout after 3021ms calling payment-gateway",
+  "errorType": "TimeoutException",
+  "attributes": { "env": "prod" }
+}
+
+### 7. Event for a project nobody registered -> 404
+POST http://localhost:8080/api/events
+Content-Type: application/json
+
+{ "projectId": "ghost", "service": "api", "severity": "INFO", "message": "hello" }
+
+### 8. Events of a project, errors only, newest first
+GET http://localhost:8080/api/projects/shop/events?minSeverity=ERROR&limit=10
+
+### 9. Incidents (activeOnly=true hides resolved ones)
+GET http://localhost:8080/api/incidents?activeOnly=true
+
+### 10. Acknowledge an incident: paste a real id from request 9
+POST http://localhost:8080/api/incidents/PASTE-ID-HERE/acknowledge
+Content-Type: application/json
+
+{ "by": "dave" }
+
+### 11. Resolve it (repeat to see 409: RESOLVED is a final state)
+POST http://localhost:8080/api/incidents/PASTE-ID-HERE/resolve
+
+### 12. Audit trail: shows PROJECT_REGISTERED and PROJECT_REJECTED rows (transaction propagation)
+GET http://localhost:8080/api/audit?limit=20
+
+### 13. Dashboard numbers
+GET http://localhost:8080/api/stats
