@@ -1,0 +1,8 @@
+INCIDENT OPENED [ERROR] Repeated error in chat/gateway: TimeoutException (5 occurrences in window) (id=a7b33533-ad91-4428-9496-f140389c3b93)
+INCIDENT OPENED [ERROR] Repeated error in shop/payment-service: SQLException (5 occurrences in window) (id=96cc5000-9741-431a-bece-e73a5cf089af)
+INCIDENT OPENED [ERROR] Repeated error in shop/payment-service: TimeoutException (5 occurrences in window) (id=cb42588e-1db5-42a4-a142-6e6884532657)
+INCIDENT OPENED [ERROR] Repeated error in chat/gateway: NullPointerException (5 occurrences in window) (id=7dbb6cbf-eda7-474e-a7ad-dfe67a9d256b)
+INCIDENT OPENED [ERROR] Repeated error in shop/payment-service: NullPointerException (5 occurrences in window) (id=1ba40ca6-b91f-48e8-a202-fabf93ebd27f)
+INCIDENT OPENED [ERROR] Repeated error in chat/gateway: SQLException (5 occurrences in window) (id=7200bc4d-ef6e-493c-b286-36faf22cc3dd)
+INCIDENT a7b33533-ad91-4428-9496-f140389c3b93: OPEN -> ACKNOWLEDGED
+INCIDENT a7b33533-ad91-4428-9496-f140389c3b93: ACKNOWLEDGED -> RESOLVED
